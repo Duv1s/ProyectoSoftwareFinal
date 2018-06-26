@@ -1,0 +1,124 @@
+
+				
+<div class="panel panel-primary" ng-hide="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Acudiente</div>
+    <div class="panel-body">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" ng-click="nuevo()">Nuevo Acudiente</button>
+		</div>
+        <table class="resultados table table-striped">
+            <tr>
+                <th>
+                    fechaNacimiento
+                </th>
+                <th>
+                    numeroIdentificacion
+                </th>
+                <th>
+                    nombre
+                </th>
+                <th>
+                    apellido
+                </th>
+                
+				<th>
+				    paciente
+				</th>
+				
+				<th>
+                    <input class="form-control" ng-model="q"  placeholder="Buscar"/>
+                </th>
+            </tr>
+            <tr dir-paginate="row in lista|filter: q|itemsPerPage:10">
+                	<td>{{row.fechaNacimiento| date: 'dd/MM/yyyy'}}</td>
+                
+                	<td>{{row.numeroIdentificacion}}</td>
+                
+                	<td>{{row.nombre}}</td>
+                
+                	<td>{{row.apellido}}</td>
+                
+                
+					<td class="row">{{row.paciente.nombre}}</td>     
+				         
+				<td class="row">
+                    <button type="button" class="btn btn-default" ng-click="editar(row)">
+                        <span class="glyphicon glyphicon-pencil"></span>Editar
+                    </button>
+					<button type="button" class="btn btn-default" ng-click="eliminar(row)">
+                        <span class="glyphicon glyphicon-remove"></span>Eliminar
+                    </button>
+                </td>
+            </tr>
+        </table>
+		<div dir-pagination-controls></div>
+		<br/>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Acudiente</div>
+    <div class="panel-body">
+	    				
+	    <div class="form-group col-md-6" ng-class="errores.fechaNacimiento?'error':''">
+	        <label for="fechaNacimiento">fechaNacimiento</label>
+	    	<div class="input-group">
+	            <input id="fechaNacimiento" 
+	                   class="form-control datepicker" 
+	                   type="text" 
+	                   ng-model="datosFormulario.fechaNacimiento"/>
+	    		<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	    	</div>
+	        <script>
+	                    $('#fechaNacimiento').datepicker({format: 'dd/mm/yyyy', language: "es"})
+	    					.on('changeDate', function (ev) {
+	                        	dp_fechaNacimiento.hide();
+	                    	}).data('datepicker');
+	        </script>
+	        <div ng-show="errores.fechaNacimiento">{{errores.fechaNacimiento}}</div>
+	    </div>				
+	    <div class="form-group col-md-6" ng-class="errores.numeroIdentificacion?'error':''">
+	        <label for="numeroIdentificacion">numeroIdentificacion</label>
+	        <input id="numeroIdentificacion" 
+	               class="form-control" 
+	    		   type="text"
+	               ng-model="datosFormulario.numeroIdentificacion"
+	    		   placeholder="numeroIdentificacion"/>
+	        <div ng-show="errores.numeroIdentificacion">{{errores.numeroIdentificacion}}</div>
+	    </div>				
+	    <div class="form-group col-md-6" ng-class="errores.nombre?'error':''">
+	        <label for="nombre">nombre</label>
+	        <input id="nombre" 
+	               class="form-control" 
+	    		   type="text"
+	               ng-model="datosFormulario.nombre"
+	    		   placeholder="nombre"/>
+	        <div ng-show="errores.nombre">{{errores.nombre}}</div>
+	    </div>				
+	    <div class="form-group col-md-6" ng-class="errores.apellido?'error':''">
+	        <label for="apellido">apellido</label>
+	        <input id="apellido" 
+	               class="form-control" 
+	    		   type="text"
+	               ng-model="datosFormulario.apellido"
+	    		   placeholder="apellido"/>
+	        <div ng-show="errores.apellido">{{errores.apellido}}</div>
+	    </div> 
+		<div class="row">
+		    <div class="form-group col-md-6" ng-class="errores.paciente?'error':''">
+		        <label>paciente</label>
+				<select id="paciente" class="form-control" 
+		            ng-model="datosFormulario.paciente"
+		            ng-options="option.nombre for option in listaPaciente track by option.id">
+		    	</select>
+		        <div ng-show="errores.paciente">{{errores.paciente}}</div>
+		    </div>
+		</div>
+		
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" ng-click="guardar()">Aceptar</button>
+	        <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+	    </div>    
+    </div>
+</div>
+

@@ -1,0 +1,129 @@
+
+				
+<div class="panel panel-primary" ng-hide="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Dosis</div>
+    <div class="panel-body">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" ng-click="nuevo()">Nuevo Dosis</button>
+		</div>
+        <table class="resultados table table-striped">
+            <tr>
+                <th>
+                    nombre
+                </th>
+                <th>
+                    edadMin
+                </th>
+                <th>
+                    edadMax
+                </th>
+                <th>
+                    embarazo
+                </th>
+                
+				<th>
+				    aplicacionVacuna
+				</th>
+				<th>
+				    biologico
+				</th>
+				
+				<th>
+                    <input class="form-control" ng-model="q"  placeholder="Buscar"/>
+                </th>
+            </tr>
+            <tr dir-paginate="row in lista|filter: q|itemsPerPage:10">
+                	<td>{{row.nombre}}</td>
+                
+                	<td>{{row.edadMin}}</td>
+                
+                	<td>{{row.edadMax}}</td>
+                
+                	<td><span class="glyphicon" ng-class="row.embarazo?'glyphicon-ok':'glyphicon-remove'"></span>{{}}</td>
+                
+                
+					<td class="row">{{row.biologico.nombre}}</td>     
+				         	<td class="row">{{row.aplicacionVacuna.nombre}}</td>     
+				         
+				<td class="row">
+                    <button type="button" class="btn btn-default" ng-click="editar(row)">
+                        <span class="glyphicon glyphicon-pencil"></span>Editar
+                    </button>
+					<button type="button" class="btn btn-default" ng-click="eliminar(row)">
+                        <span class="glyphicon glyphicon-remove"></span>Eliminar
+                    </button>
+                </td>
+            </tr>
+        </table>
+		<div dir-pagination-controls></div>
+		<br/>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Dosis</div>
+    <div class="panel-body">
+	    				
+	    <div class="form-group col-md-6" ng-class="errores.nombre?'error':''">
+	        <label for="nombre">nombre</label>
+	        <input id="nombre" 
+	               class="form-control" 
+	    		   type="text"
+	               ng-model="datosFormulario.nombre"
+	    		   placeholder="nombre"/>
+	        <div ng-show="errores.nombre">{{errores.nombre}}</div>
+	    </div>				
+	    <div class="form-group col-md-6" ng-class="errores.edadMin?'error':''">
+	        <label for="edadMin">edadMin</label>
+	        <input id="edadMin" 
+	               class="form-control" 
+	    		   type="text"
+	               ng-model="datosFormulario.edadMin"
+	    		   placeholder="edadMin"/>
+	        <div ng-show="errores.edadMin">{{errores.edadMin}}</div>
+	    </div>				
+	    <div class="form-group col-md-6" ng-class="errores.edadMax?'error':''">
+	        <label for="edadMax">edadMax</label>
+	        <input id="edadMax" 
+	               class="form-control" 
+	    		   type="text"
+	               ng-model="datosFormulario.edadMax"
+	    		   placeholder="edadMax"/>
+	        <div ng-show="errores.edadMax">{{errores.edadMax}}</div>
+	    </div>				
+	    <div class="form-group col-md-6" ng-class="errores.embarazo?'error':''">
+	        <label for="embarazo">embarazo</label>
+	    	<input id="embarazo" 
+	    		   type="checkbox"
+	               class="form-control" 
+	               ng-model="datosFormulario.embarazo"/>
+	        <div ng-show="errores.embarazo">{{errores.embarazo}}</div>
+	    </div> 
+		<div class="row">
+		    <div class="form-group col-md-6" ng-class="errores.aplicacionVacuna?'error':''">
+		        <label>aplicacionVacuna</label>
+				<select id="aplicacionVacuna" class="form-control" 
+		            ng-model="datosFormulario.aplicacionVacuna"
+		            ng-options="option.nombre for option in listaAplicacionVacuna track by option.id">
+		    	</select>
+		        <div ng-show="errores.aplicacionVacuna">{{errores.aplicacionVacuna}}</div>
+		    </div>
+		</div>
+		<div class="row">
+		    <div class="form-group col-md-6" ng-class="errores.biologico?'error':''">
+		        <label>biologico</label>
+				<select id="biologico" class="form-control" 
+		            ng-model="datosFormulario.biologico"
+		            ng-options="option.nombre for option in listaBiologico track by option.id">
+		    	</select>
+		        <div ng-show="errores.biologico">{{errores.biologico}}</div>
+		    </div>
+		</div>
+		
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" ng-click="guardar()">Aceptar</button>
+	        <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+	    </div>    
+    </div>
+</div>
+
