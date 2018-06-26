@@ -21,6 +21,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/Dosis', {templateUrl: 'partials/Dosis.html', controller: 'DosisCtrl'});
         $routeProvider.when('/Vacunador', {templateUrl: 'partials/Vacunador.html', controller: 'VacunadorCtrl'});
         $routeProvider.when('/Biologico', {templateUrl: 'partials/Biologico.html', controller: 'BiologicoCtrl'});
+        $routeProvider.when('/GrupoEtnico', {templateUrl: 'partials/GrupoEtnico.html', controller: 'GrupoEtnicoCtrl'});
         $routeProvider.when('/IPS', {templateUrl: 'partials/IPS.html', controller: 'IPSCtrl'});
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
